@@ -3,9 +3,9 @@ package entity;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public int worldX;
-    public int worldY;
-    public int speed;
+    public double worldX;
+    public double worldY;
+    public double speed;
     public BufferedImage up1, up2;
     public BufferedImage down1, down2;
     public BufferedImage left1, left2;

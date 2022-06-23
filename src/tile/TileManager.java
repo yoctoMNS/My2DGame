@@ -82,16 +82,16 @@ public class TileManager {
 
         while (worldCol < gamePanel.MAX_WORLD_COL && worldRow < gamePanel.MAX_WORLD_ROW) {
             int tileNum = mapTileNum[worldCol][worldRow];
-            int worldX = worldCol * gamePanel.TILE_SIZE;
-            int worldY = worldRow * gamePanel.TILE_SIZE;
-            int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-            int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+            int worldX = worldCol * gamePanel.tileSize;
+            int worldY = worldRow * gamePanel.tileSize;
+            double screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
+            double screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
-            if (worldX + gamePanel.TILE_SIZE > gamePanel.player.worldX - gamePanel.player.screenX &&
-                worldX - gamePanel.TILE_SIZE < gamePanel.player.worldX + gamePanel.player.screenX &&
-                worldY + gamePanel.TILE_SIZE > gamePanel.player.worldY - gamePanel.player.screenY &&
-                worldY - gamePanel.TILE_SIZE < gamePanel.player.worldY + gamePanel.player.screenY) {
-                g.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+            if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX &&
+                worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX &&
+                worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY &&
+                worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
+                g.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gamePanel.tileSize, gamePanel.tileSize, null);
             }
             worldCol++;
 

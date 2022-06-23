@@ -17,17 +17,17 @@ public class Player extends Entity {
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
-        this.screenX = gamePanel.SCREEN_WIDTH / 2 - (gamePanel.TILE_SIZE / 2);
-        this.screenY = gamePanel.SCREEN_HEIGHT / 2 - (gamePanel.TILE_SIZE / 2);
+        this.screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
+        this.screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        worldX = gamePanel.TILE_SIZE * 23;
-        worldY = gamePanel.TILE_SIZE * 21;
-        speed = 4;
+        worldX = gamePanel.tileSize * 23;
+        worldY = gamePanel.tileSize * 21;
+        speed = gamePanel.WORLD_WIDTH / 600;
         direction = "down";
     }
 
@@ -118,6 +118,6 @@ public class Player extends Entity {
             break;
         }
 
-        g.drawImage(image, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+        g.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }
