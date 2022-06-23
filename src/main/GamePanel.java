@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public Player player = new Player(this, keyHandler);
-    public SuperObject object[] = new SuperObject[10];
+    public SuperObject[] object = new SuperObject[10];
 
     public GamePanel() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -54,10 +54,10 @@ public class GamePanel extends JPanel implements Runnable {
         int oldWorldWidth = tileSize * MAX_WORLD_COL;
         tileSize += i;
         int newWorldwidth = tileSize * MAX_WORLD_COL;
-        player.speed = (double)newWorldwidth / 600;
-        double multiplier = (double)newWorldwidth / oldWorldWidth;
-        double newPlayerWorldX = player.worldX * multiplier;
-        double newPlayerWorldY = player.worldY * multiplier;
+        player.speed = newWorldwidth / 600;
+        int multiplier = newWorldwidth / oldWorldWidth;
+        int newPlayerWorldX = player.worldX * multiplier;
+        int newPlayerWorldY = player.worldY * multiplier;
         player.worldX = newPlayerWorldX;
         player.worldY = newPlayerWorldY;
     }

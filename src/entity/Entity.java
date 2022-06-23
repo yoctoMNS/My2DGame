@@ -4,9 +4,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public double worldX;
-    public double worldY;
-    public double speed;
+    public int worldX;
+    public int worldY;
+    public int speed;
     public BufferedImage up1, up2;
     public BufferedImage down1, down2;
     public BufferedImage left1, left2;
@@ -15,5 +15,6 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea;
+    public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
 }

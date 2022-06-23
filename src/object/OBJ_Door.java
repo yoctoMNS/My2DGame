@@ -12,5 +12,6 @@ public class OBJ_Door extends SuperObject {
             System.err.println("ドアの画像の読み込みに失敗しました。");
             e.printStackTrace();
         }
+        this.collision = true;
     }
 }
