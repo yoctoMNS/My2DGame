@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     GamePanel gamePanel;
-    Tile[] tile;
-    int[][] mapTileNum;
+    public Tile[] tile;
+    public int[][] mapTileNum;
 
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -33,9 +33,12 @@ public class TileManager {
         try {
             tile[0].image = ImageIO.read(TileManager.class.getResourceAsStream("/tiles/grass.png"));
             tile[1].image = ImageIO.read(TileManager.class.getResourceAsStream("/tiles/wall.png"));
+            tile[1].collision = true;
             tile[2].image = ImageIO.read(TileManager.class.getResourceAsStream("/tiles/water.png"));
+            tile[2].collision = true;
             tile[3].image = ImageIO.read(TileManager.class.getResourceAsStream("/tiles/earth.png"));
             tile[4].image = ImageIO.read(TileManager.class.getResourceAsStream("/tiles/tree.png"));
+            tile[4].collision = true;
             tile[5].image = ImageIO.read(TileManager.class.getResourceAsStream("/tiles/sand.png"));
         } catch (IOException e) {
             System.err.println("タイル画像の読み込みに失敗しました。");
