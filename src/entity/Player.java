@@ -36,7 +36,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         worldX = gamePanel.tileSize * 23;
         worldY = gamePanel.tileSize * 21;
-        speed = gamePanel.WORLD_WIDTH / 600;
+        speed = 4;
         direction = "down";
     }
 
@@ -109,17 +109,25 @@ public class Player extends Entity {
 
             switch (objectName) {
             case "Key":
+                gamePanel.playSE(1);
                 hasKey++;
                 gamePanel.object[i] = null;
                 System.out.println("key: " + hasKey);
                 break;
             case "Door":
                 if (hasKey > 0) {
+                    gamePanel.playSE(3);
                     gamePanel.object[i] = null;
                     hasKey--;
                 }
 
                 System.out.println("key: " + hasKey);
+                break;
+
+            case "Boots":
+                gamePanel.playSE(2);
+                speed += 2;
+                gamePanel.object[i] = null;
                 break;
             }
         }
