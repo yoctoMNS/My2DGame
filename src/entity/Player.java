@@ -2,8 +2,10 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -41,15 +43,23 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
+        up1 = setup("boy_up_1");
+        up2 = setup("boy_up_2");
+        down1 = setup("boy_down_1");
+        down2 = setup("boy_down_2");
+        left1 = setup("boy_left_1");
+        left2 = setup("boy_left_2");
+        right1 = setup("boy_right_1");
+        right2 = setup("boy_right_2");
+    }
+
+    public BufferedImage setup(String imageName) {
+        UtilityTool tool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-            up1    = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-            up2    = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-            down1  = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-            down2  = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-            left1  = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-            left2  = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+            image = ImageIO.read(Player.class.getResourceAsStream("/player/" + imageName + ".png"));
+            image = tool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
         } catch (IOException e) {
             System.err.println("プレイヤーの画像を読み込む際にエラーが発生しました。");
             e.printStackTrace();
@@ -57,6 +67,8 @@ public class Player extends Entity {
             System.err.println("指定されたパスの画像を見つけることが出来ませんでした。");
             e.printStackTrace();
         }
+
+        return image;
     }
 
     public void update() {
@@ -179,5 +191,7 @@ public class Player extends Entity {
         }
 
         g.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g.setColor(Color.RED);
+        g.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }

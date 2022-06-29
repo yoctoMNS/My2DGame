@@ -10,6 +10,9 @@ public class KeyHandler implements KeyListener {
     public boolean rightPressed;
     GamePanel gamePanel;
 
+    // DEBUG
+    public boolean checkDrawTime = false;
+
     public KeyHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
@@ -39,6 +42,11 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_DOWN) {
             gamePanel.zoomInOut(-1);
+        }
+
+        // DEBUG
+        if (code == KeyEvent.VK_T) {
+            checkDrawTime = !checkDrawTime;
         }
     }
 
