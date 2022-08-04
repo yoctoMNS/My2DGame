@@ -3,12 +3,17 @@ package main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class UI {
     GamePanel gamePanel;
     Graphics2D g;
-    Font arial_40, arial_80B;
+    Font marumonica;
+    Font purisaB;
     public boolean messageOn;
     public String message = "";
     int messageCounter = 0;
@@ -17,8 +22,17 @@ public class UI {
 
     public UI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80);
+
+        try {
+            InputStream stream = UI.class.getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            this.marumonica = Font.createFont(Font.TRUETYPE_FONT, stream);
+            stream = UI.class.getResourceAsStream("/font/Purisa Bold.ttf");
+            this.purisaB = Font.createFont(Font.TRUETYPE_FONT, stream);
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showMessage(String text) {
@@ -28,7 +42,8 @@ public class UI {
 
     public void draw(Graphics2D g) {
         this.g = g;
-        g.setFont(arial_40);
+        g.setFont(marumonica);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(Color.WHITE);
 
         // PLAY STATE
@@ -55,7 +70,7 @@ public class UI {
 
         drawSubWindow(x, y, width, height);
 
-        g.setFont(g.getFont().deriveFont(Font.PLAIN, 28F));
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, 32F));
         x += gamePanel.tileSize;
         y += gamePanel.tileSize;
 
