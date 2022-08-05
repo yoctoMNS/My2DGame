@@ -19,6 +19,7 @@ public class UI {
     int messageCounter = 0;
     public boolean gameFinished;
     public String currentDialogue = "";
+    public int commandNum = 0;
 
     public UI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -46,6 +47,11 @@ public class UI {
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(Color.WHITE);
 
+        // TITLE STATE
+        if (gamePanel.gameState == gamePanel.TITLE_STATE) {
+            drawTitleScreen();
+        }
+
         // PLAY STATE
         if (gamePanel.gameState == gamePanel.PLAY_STATE) {
             // Do play state stuff later
@@ -59,6 +65,60 @@ public class UI {
         // DIALOGUE STATE
         if (gamePanel.gameState == gamePanel.DIALOG_STATAE) {
             drawDialogueScreen();
+        }
+    }
+
+    private void drawTitleScreen() {
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
+
+        // TITLE NAME
+        g.setFont(g.getFont().deriveFont(Font.BOLD, 96F));
+        String text = "Blue Boy Adventure";
+        int x = getXforCenteredText(text);
+        int y = gamePanel.tileSize * 3;
+
+        // SHADOW
+        g.setColor(Color.GRAY);
+        g.drawString(text, x + 5, y + 5);
+
+        // MAIN COLOR
+        g.setColor(Color.WHITE);
+        g.drawString(text, x, y);
+
+        // BLUE BOY IMAGE
+        x = gamePanel.screenWidth / 2 - (gamePanel.tileSize * 2) / 2;
+        y += gamePanel.tileSize * 2;
+        g.drawImage(gamePanel.player.down1, x, y, gamePanel.tileSize * 2, gamePanel.tileSize * 2, null);
+
+        // MENU
+        g.setFont(g.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "NEW GAME";
+        x = getXforCenteredText(text);
+        y += gamePanel.tileSize * 3.5;
+        g.drawString(text, x, y);
+
+        if (commandNum == 0) {
+            g.drawString(">", x - gamePanel.tileSize, y);
+        }
+
+        text = "LOAD GAME";
+        x = getXforCenteredText(text);
+        y += gamePanel.tileSize;
+        g.drawString(text, x, y);
+
+        if (commandNum == 1) {
+            g.drawString(">", x - gamePanel.tileSize, y);
+        }
+
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        y += gamePanel.tileSize;
+        g.drawString(text, x, y);
+
+        if (commandNum == 2) {
+            g.drawString(">", x - gamePanel.tileSize, y);
         }
     }
 

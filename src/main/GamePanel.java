@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // GAME STATE
     public int gameState;
+    public final int TITLE_STATE = 0;
     public final int PLAY_STATE = 1;
     public final int PAUSE_STATE = 2;
     public final int DIALOG_STATAE = 3;
@@ -61,9 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         assetSetter.setObject();
         assetSetter.setNPC();
-        playMusic(0);
-        stopMusic();
-        gameState = PLAY_STATE;
+        gameState = TITLE_STATE;
     }
 
     public void zoomInOut(int i) {
@@ -142,28 +141,35 @@ public class GamePanel extends JPanel implements Runnable {
             drawStart = System.nanoTime();
         }
 
-        // TILE
-        tileManager.draw(g);
-
-        // OBJECT
-        for (int i = 0; i < target.length; i++) {
-            if (target[i] != null) {
-                target[i].draw(g, this);
-            }
+        // TITLE SCREEN
+        if (gameState == TITLE_STATE) {
+            ui.draw(g);
         }
+        // OTHERS
+        else {
+            // TILE
+            tileManager.draw(g);
 
-        // NPC
-        for (int i = 0; i < npc.length; i++) {
-            if (npc[i] != null) {
-                npc[i].draw(g);
+            // OBJECT
+            for (int i = 0; i < target.length; i++) {
+                if (target[i] != null) {
+                    target[i].draw(g, this);
+                }
             }
+
+            // NPC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].draw(g);
+                }
+            }
+
+            // PLAYER
+            player.draw(g);
+
+            // UI
+            ui.draw(g);
         }
-
-        // PLAYER
-        player.draw(g);
-
-        // UI
-        ui.draw(g);
 
         // DEBUG
         if (keyHandler.checkDrawTime) {
