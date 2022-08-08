@@ -1,11 +1,15 @@
 package main;
 
+import object.OBJ_Heart;
+import object.SuperObject;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -20,6 +24,9 @@ public class UI {
     public boolean gameFinished;
     public String currentDialogue = "";
     public int commandNum = 0;
+    public BufferedImage hartFull;
+    public BufferedImage hartHalf;
+    public BufferedImage hartBlank;
 
     public UI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -34,6 +41,12 @@ public class UI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // CREATE HUD OBJECT
+        SuperObject heart = new OBJ_Heart(gamePanel);
+        hartFull = heart.image;
+        hartHalf = heart.image2;
+        hartBlank = heart.image3;
     }
 
     public void showMessage(String text) {
@@ -54,17 +67,49 @@ public class UI {
 
         // PLAY STATE
         if (gamePanel.gameState == gamePanel.PLAY_STATE) {
-            // Do play state stuff later
+            drawPlayerLife();
         }
 
         // PAUSE STATE
         if (gamePanel.gameState == gamePanel.PAUSE_STATE) {
+            drawPlayerLife();
             drawPauseScreen();
         }
 
         // DIALOGUE STATE
         if (gamePanel.gameState == gamePanel.DIALOG_STATAE) {
+            drawPlayerLife();
             drawDialogueScreen();
+        }
+    }
+
+    private void drawPlayerLife() {
+        int x = gamePanel.tileSize / 2;
+        int y = gamePanel.tileSize / 2;
+        int i = 0;
+
+        // DRAW BLANK HEART
+        while (i < gamePanel.player.maxLife / 2) {
+            g.drawImage(hartBlank, x, y,null);
+            i++;
+            x += gamePanel.tileSize;
+        }
+
+        // RESET
+        x = gamePanel.tileSize / 2;
+        y = gamePanel.tileSize / 2;
+        i = 0;
+
+        // DRAW CURRENT LIFE
+        while (i < gamePanel.player.life) {
+            g.drawImage(hartHalf, x, y, null);
+            i++;
+
+            if (i < gamePanel.player.life) {
+                g.drawImage(hartFull, x, y, null);
+            }
+            i++;
+            x += gamePanel.tileSize;
         }
     }
 
