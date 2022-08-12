@@ -70,6 +70,7 @@ public class UI {
             drawPlayerLife();
         }
 
+        // 11:41
         // PAUSE STATE
         if (gamePanel.gameState == gamePanel.PAUSE_STATE) {
             drawPlayerLife();
