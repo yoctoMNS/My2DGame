@@ -18,7 +18,7 @@ public class Entity {
     public BufferedImage down1, down2;
     public BufferedImage left1, left2;
     public BufferedImage right1, right2;
-    public String direction;
+    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
@@ -27,6 +27,14 @@ public class Entity {
     public int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
+    public BufferedImage image;
+    public BufferedImage image2;
+    public BufferedImage image3;
+    public String name;
+    public boolean collision = false;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
+    public int type; // 0 = player, 1 = npc, 2 = monster
 
     // CHARACTER STATUS
     public int maxLife;
@@ -48,7 +56,17 @@ public class Entity {
         collisionOn = false;
         gamePanel.collisionChecker.checkTile(this);
         gamePanel.collisionChecker.checkOjbect(this, false);
-        gamePanel.collisionChecker.checkPlayer(this);
+        gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
+        gamePanel.collisionChecker.checkEntity(this, gamePanel.monster);
+        boolean contactPlayer = gamePanel.collisionChecker.checkPlayer(this);
+
+        if (type == 2 && contactPlayer == true) {
+            if (gamePanel.player.invincible == false) {
+                // we can give damage
+                gamePanel.player.life -= 1;
+                gamePanel.player.invincible = true;
+            }
+        }
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn) {

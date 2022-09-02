@@ -35,8 +35,6 @@ public class NPC_OldMan extends Entity {
 
     @Override
     public void setAction() {
-        super.setAction();
-
         actionLockCounter++;
 
         if (actionLockCounter == 120) {

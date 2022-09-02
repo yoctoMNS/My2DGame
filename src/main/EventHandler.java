@@ -44,7 +44,6 @@ public class EventHandler {
         }
 
         if (canTouchEvent) {
-            System.out.println("in");
             if (hit(27, 16, "right")) damagePit(27, 16, gamePanel.DIALOG_STATAE);
             if (hit(23, 19, "any")) damagePit(23, 19, gamePanel.DIALOG_STATAE);
             if (hit(23, 12, "up")) healingPool(23, 12, gamePanel.DIALOG_STATAE);

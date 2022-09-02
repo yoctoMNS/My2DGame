@@ -1,23 +1,21 @@
 package object;
 
+import entity.Entity;
 import main.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-
-public class OBJ_Door extends SuperObject {
-    GamePanel gamePanel;
-
+public class OBJ_Door extends Entity {
     public OBJ_Door(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+        super(gamePanel);
+
         this.name = "Door";
-        try {
-            this.image = ImageIO.read(OBJ_Key.class.getResourceAsStream("/objects/door.png"));
-            tool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
-        } catch (IOException e) {
-            System.err.println("ドアの画像の読み込みに失敗しました。");
-            e.printStackTrace();
-        }
+        this.down1 = setup("/objects/door");
         this.collision = true;
+
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
     }
 }
