@@ -4,13 +4,14 @@ import main.GamePanel;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Entity {
-    GamePanel gamePanel;
+    public GamePanel gamePanel;
     public int worldX;
     public int worldY;
     public int speed;
@@ -18,6 +19,10 @@ public class Entity {
     public BufferedImage down1, down2;
     public BufferedImage left1, left2;
     public BufferedImage right1, right2;
+    public BufferedImage attackUp1, attackUp2;
+    public BufferedImage attackDown1, attackDown2;
+    public BufferedImage attackLeft1, attackLeft2;
+    public BufferedImage attackRight1, attackRight2;
     public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -35,6 +40,8 @@ public class Entity {
     public boolean invincible = false;
     public int invincibleCounter = 0;
     public int type; // 0 = player, 1 = npc, 2 = monster
+    boolean attacking = false;
+    Rectangle attackArea = new Rectangle();
 
     // CHARACTER STATUS
     public int maxLife;
@@ -89,6 +96,15 @@ public class Entity {
 
             spriteCounter = 0;
         }
+
+        if (invincible == true) {
+            invincibleCounter++;
+
+            if (invincibleCounter > 40) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
 
     public void draw(Graphics2D g) {
@@ -131,21 +147,23 @@ public class Entity {
             break;
         }
 
-        if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX &&
-                worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX &&
-                worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY &&
-                worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
-            g.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        if (invincible == true) {
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4F));
         }
+
+        g.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+
+        // Reset alpha
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
     }
 
-    public BufferedImage setup(String imagePath) {
+    public BufferedImage setup(String imagePath, int width, int height) {
         UtilityTool tool = new UtilityTool();
         BufferedImage image = null;
 
         try {
             image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-            image = tool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
+            image = tool.scaleImage(image, width, height);
         } catch (IOException e) {
             System.err.println("プレイヤーの画像を読み込む際にエラーが発生しました。");
             e.printStackTrace();

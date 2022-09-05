@@ -8,6 +8,6 @@ public class OBJ_Key extends Entity {
         super(gamePanel);
 
         this.name = "Key";
-        this.down1 = setup("/objects/key");
+        this.down1 = setup("/objects/key", gamePanel.tileSize, gamePanel.tileSize);
     }
 }

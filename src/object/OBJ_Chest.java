@@ -8,6 +8,6 @@ public class OBJ_Chest extends Entity {
         super(gamePanel);
 
         this.name = "Chest";
-        this.down1 = setup("/objects/chest");
+        this.down1 = setup("/objects/chest", gamePanel.tileSize, gamePanel.tileSize);
     }
 }

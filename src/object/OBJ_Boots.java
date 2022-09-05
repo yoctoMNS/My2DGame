@@ -8,7 +8,7 @@ public class OBJ_Boots extends Entity {
         super(gamePanel);
 
         this.name = "Boots";
-        this.down1 = setup("objects/boots");
+        this.down1 = setup("objects/boots", gamePanel.tileSize, gamePanel.tileSize);
         this.collision = true;
     }
 }

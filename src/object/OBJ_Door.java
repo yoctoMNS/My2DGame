@@ -8,7 +8,7 @@ public class OBJ_Door extends Entity {
         super(gamePanel);
 
         this.name = "Door";
-        this.down1 = setup("/objects/door");
+        this.down1 = setup("/objects/door", gamePanel.tileSize, gamePanel.tileSize);
         this.collision = true;
 
         solidArea.x = 0;
