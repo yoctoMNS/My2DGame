@@ -18,6 +18,9 @@ public class Sound {
         soundURL[2] = Sound.class.getResource("/sound/powerup.wav");
         soundURL[3] = Sound.class.getResource("/sound/unlock.wav");
         soundURL[4] = Sound.class.getResource("/sound/fanfare.wav");
+        soundURL[5] = Sound.class.getResource("/sound/hitmonster.wav");
+        soundURL[6] = Sound.class.getResource("/sound/receivedamage.wav");
+        soundURL[7] = Sound.class.getResource("/sound/swingweapon.wav");
     }
 
     public void setFile(int i) {

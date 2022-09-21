@@ -11,7 +11,7 @@ public class MON_GreenSlime extends Entity {
 
         this.name = "Green Slime";
         this.speed = 1;
-        this.maxLife = 4;
+        this.maxLife = 20;
         this.life = maxLife;
 
         this.solidArea.x = 3;
@@ -60,5 +60,11 @@ public class MON_GreenSlime extends Entity {
 
             actionLockCounter = 0;
         }
+    }
+
+    @Override
+    public void damageRection() {
+        actionLockCounter = 0;
+        direction = gamePanel.player.direction;
     }
 }
